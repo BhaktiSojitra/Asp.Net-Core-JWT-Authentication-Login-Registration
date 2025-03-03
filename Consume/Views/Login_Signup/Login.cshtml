@@ -1,0 +1,131 @@
+﻿@model Consume.Models.LoginModel
+
+<main>
+    <div class="container" style="width: 55rem">
+        <section class="d-flex align-items-center justify-content-center">
+            <div class="row w-100" style="max-width: 550px;">
+                <div class="col-md-12 d-flex align-items-center justify-content-center" style="padding: 30px;">
+                    <div class="card w-100" style="border: none; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+                        <div class="card-body">
+                            <h3 class="card-title text-center" style="color: #ff9f1c; font-weight: bold; margin-bottom: 2px;">Login</h3>
+                            <p class="text-center small" style="color: #8d6e63;margin-bottom: 25px;">Please login to continue</p>
+
+                            <form class="row g-4 needs-validation" asp-controller="Login_Signup" asp-action="LoginSave" method="post">
+                                <style>
+                                    .custom-input {
+                                        padding: 1.25rem 1.15rem;
+                                        height: 1.4rem;
+                                        background: rgb(255, 255, 255);
+                                        font-size: 0.85rem;
+                                        width: 100%;
+                                        outline: none;
+                                        box-sizing: border-box;
+                                        border-radius: 8px;
+                                    }
+                                    .form-label-new {
+                                        color: #D97706;
+                                        position: absolute;
+                                        top: -10px;
+                                        left: 12px;
+                                        background: #fff;
+                                        padding: 0 5px;
+                                        font-size: 0.85rem;
+                                    }
+                                    .radio-label {
+                                        font-size: 0.85rem;
+                                        margin-right: 10px;
+                                    }
+                                    .form-check-inline {
+                                        margin-right: 15px;
+                                    }
+                                    .password-container {
+                                        position: relative;
+                                        width: 100%;
+                                    }
+                                    .toggle-password {
+                                        position: absolute;
+                                        right: 17px;
+                                        top: 50%;
+                                        transform: translateY(-50%);
+                                        cursor: pointer;
+                                        color: #8d6e63;
+                                        z-index: 1;
+                                    }
+                                </style>
+
+                                <!-- Error Message -->
+                                @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+                                {
+                                    <div class="alert alert-danger text-center" role="alert">
+                                        @ViewBag.ErrorMessage
+                                    </div>
+                                }
+
+                                <!-- Role Section -->
+                                <div class="col-12 position-relative">
+                                    <label class="form-label" style="display: block; margin-bottom: 8px; color: #e67e22;">Role</label>
+                                    <div class="d-flex align-items-center" style="gap: 15px;">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" asp-for="Role" id="roleAdmin" value="Admin">
+                                            <label class="form-check-label" for="roleAdmin" style="font-size: 0.9rem;">Admin</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" asp-for="Role" id="roleUser" value="User">
+                                            <label class="form-check-label" for="roleUser" style="font-size: 0.9rem;">User</label>
+                                        </div>
+                                    </div>
+                                    <!-- Validation message -->
+                                    <span class="text-danger" asp-validation-for="Role" style="font-size: 0.85rem;"></span>
+                                </div>
+
+                                <!-- Username Section -->
+                                <div class="col-12 position-relative">
+                                    <label for="yourName" class="form-label form-label-new">User name</label>
+                                    <input type="text" asp-for="UserName" class="custom-input" id="yourName">
+                                    <span class="text-danger" asp-validation-for="UserName" style="font-size: 0.85rem;"></span>
+                                </div>
+
+                                <!-- Password Section -->
+                                <div class="col-12 position-relative password-container">
+                                    <label for="yourPassword" class="form-label form-label-new">Password</label>
+                                    <input type="password" asp-for="Password" class="custom-input input-wrapper" id="yourPassword" value="@Model?.Password">
+                                    <span class="text-danger" asp-validation-for="Password" style="font-size: 0.85rem;"></span>
+
+                                    <div class="mt-2">
+                                        <input type="checkbox" id="showPasswordCheckbox" onclick="togglePassword()">
+                                        <label for="showPasswordCheckbox" style="color: #8d6e63; font-size: 0.95rem;">Show Password</label>
+                                    </div>
+                                </div>
+
+                                <!-- Login Button -->
+                                <div class="col-12">
+                                    <button class="btn w-100" type="submit" style="background-color: #ff9f1c; color: #fff;">
+                                        Login
+                                    </button>
+                                </div>
+
+                                <!-- Signup Link -->
+                                <div class="col-12 text-start">
+                                    <p class="small mb-0" style="color: #8d6e63;">
+                                        New to XYZ?
+                                        <a asp-controller="Login_Signup" asp-action="Signup" style="color: #d17a22;">Create account</a>
+                                    </p>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<script>
+    function togglePassword() {
+       var passwordInput = document.getElementById("yourPassword");
+       var checkbox = document.getElementById("showPasswordCheckbox");
+
+       passwordInput.type = checkbox.checked ? "text" : "password";
+    }
+</script>
